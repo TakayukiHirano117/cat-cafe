@@ -3,28 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ContactRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactAdminMail;
+use Illuminate\View\View;
 
 
 class ContactController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         return view('contact.index');
     }
 
-    public function complete()
+    public function complete(): View
     {
         return view('contact.complete');
     }
 
-    public function sendMail(ContactRequest $request) {
-    $validated = $request->validated();
+    public function sendMail(ContactRequest $request): RedirectResponse
+    {
+        $validated = $request->validated();
 
-    // これ以降の行は入力エラーがなかった場合のみ実行されます
-    // 登録処理(実際はメール送信などを行う)
-    Mail::to('admin@example.com')->send(new ContactAdminMail($validated));
-    return to_route('contact.complete');
-}
+        Mail::to('admin@example.com')->send(new ContactAdminMail($validated));
+        return to_route('contact.complete');
+    }
 }

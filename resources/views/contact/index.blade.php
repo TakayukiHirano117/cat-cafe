@@ -33,6 +33,9 @@
         <div class="mb-4">
           <label for="name" class="block text-left p-1 my-1 font-medium">お名前<span class="text-white text-xs bg-yellow-400 mx-2 py-1 px-2">必須</span></label>
           <input id="name" class="w-full p-4 text-xs leading-none bg-blueGray-50 rounded outline-none border" type="text" placeholder="例）田中太郎" name="name" value="{{ old('name') }}">
+          <!-- @if($errors->has('name'))
+            <p class="text-pink-400">{{ $errors->first('name') }}</p>
+          @endif -->
         </div>
         <div class="mb-4">
           <label for=name_kana class="block text-left p-1 my-1 font-medium">お名前（フリガナ）<span class="text-white text-xs bg-yellow-400 mx-2 py-1 px-2">必須</span></label>
