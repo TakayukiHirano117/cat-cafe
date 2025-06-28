@@ -8,9 +8,11 @@ class BlogRepository
 {
     /**
      * ブログを登録する
+     * @param array $blogRequestData
+     * @return void
      */
-    public function store(array $blogRequestData): Blog
+    public function store(array $blogRequestData): void
     {
-        return Blog::create($blogRequestData);
+        Blog::create($blogRequestData);
     }
 }
