@@ -4,43 +4,55 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreBlogRequest;
+use App\Http\Requests\Admin\UpdateBlogRequest;
 use App\Services\Admin\BlogService;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class AdminBlogController extends Controller
 {
-    public function __construct(protected BlogService $blogService) {}
-
-    public function index()
+    public function __construct(protected BlogService $blogService)
     {
-        return view('admin.blogs.index');
     }
 
-    public function create()
+    public function index(): View
+    {
+        $blogs = $this->blogService->getAllBlog();
+
+        return view('admin.blogs.index', ['blogs' => $blogs]);
+    }
+
+    public function create(): View
     {
         return view('admin.blogs.create');
     }
 
-    public function store(StoreBlogRequest $request)
+    public function store(StoreBlogRequest $request): RedirectResponse
     {
-        $this->blogService->storeBlog($request->validated());
+        $this->blogService->storeBlog(blogRequestData: $request->validated());
 
-        return redirect()->route('admin.blogs.index');
+        return to_route('admin.blogs.index')->with('success', 'ブログを登録しました');
     }
 
-    public function show(string $id)
+    public function show(string $id): View
     {
-        //
+        $blog = $this->blogService->getBlog(id: $id);
+
+        return view('admin.blogs.show', ['blog' => $blog]);
     }
 
-    public function edit(string $id)
+    public function edit(string $id): View
     {
-        //
+        $blog = $this->blogService->getBlog(id: $id);
+
+        return view('admin.blogs.edit', ['blog' => $blog]);
     }
 
-    public function update(Request $request, string $id)
+    public function update(UpdateBlogRequest $request, string $id): RedirectResponse
     {
-        //
+        $this->blogService->updateBlog(request: $request, id: $id);
+
+        return to_route('admin.blogs.index')->with('success', 'ブログを更新しました');
     }
 
     public function destroy(string $id)
