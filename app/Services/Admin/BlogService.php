@@ -7,7 +7,7 @@ use App\Models\Blog;
 use Illuminate\Database\Eloquent\Collection;
 use Storage;
 
-class BlogService
+class BlogService implements BlogServiceInterface
 {
     public function __construct(protected BlogRepository $blogRepository)
     {
