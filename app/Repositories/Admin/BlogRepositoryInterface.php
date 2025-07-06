@@ -5,36 +5,27 @@ namespace App\Repositories\Admin;
 use App\Models\Blog;
 use Illuminate\Database\Eloquent\Collection;
 
-class BlogRepository implements BlogRepositoryInterface
+interface BlogRepositoryInterface
 {
     /**
      * ブログを全件取得する
      * @return Collection
      */
-    public function getAllBlog(): Collection
-    {
-        return Blog::all();
-    }
+    public function getAllBlog(): Collection;
 
     /**
      * ブログ１件の詳細データを取得する。
      * @param int $id
      * @return Blog
      */
-    public function getBlog($id)
-    {
-        return Blog::findOrFail($id);
-    }
+    public function getBlog($id);
 
     /**
      * ブログを登録する
      * @param array $blogRequestData
      * @return void
      */
-    public function store(array $blogRequestData): void
-    {
-        Blog::create($blogRequestData);
-    }
+    public function store(array $blogRequestData): void;
 
     /**
      * ブログを更新する
@@ -42,8 +33,5 @@ class BlogRepository implements BlogRepositoryInterface
      * @param array $blogRequestData
      * @return void
      */
-    public function update($blog, $blogRequestData): void
-    {
-        $blog->update($blogRequestData);
-    }
-}
+    public function update($blog, $blogRequestData): void;
+} 

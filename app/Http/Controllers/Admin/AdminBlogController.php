@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreBlogRequest;
 use App\Http\Requests\Admin\UpdateBlogRequest;
+use App\Models\Blog;
 use App\Services\Admin\BlogService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use Storage;
 
 class AdminBlogController extends Controller
 {
@@ -57,6 +59,8 @@ class AdminBlogController extends Controller
 
     public function destroy(string $id)
     {
-        //
+        $this->blogService->deleteBlog(id: $id);
+
+        return to_route('admin.blogs.index')->with('success', 'ブログを削除しました');
     }
 }

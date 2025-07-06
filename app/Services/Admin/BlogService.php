@@ -7,7 +7,7 @@ use App\Models\Blog;
 use Illuminate\Database\Eloquent\Collection;
 use Storage;
 
-class BlogService
+class BlogService implements BlogServiceInterface
 {
     public function __construct(protected BlogRepository $blogRepository)
     {
@@ -47,11 +47,18 @@ class BlogService
         $blog = $this->blogRepository->getBlog($id);
         $validatedRequestData = $request->validated();
 
-        if($request->hasFile('image')) {
+        if ($request->hasFile('image')) {
             Storage::disk('public')->delete($blog->image);
             $validatedRequestData['image'] = $request->file('image')->store('blogs', 'public');
         }
 
         $this->blogRepository->update($blog, $validatedRequestData);
+    }
+
+    public function deleteBlog($id): void
+    {
+        $blog = $this->blogRepository->getBlog($id);
+        Storage::disk('public')->delete($blog->image);
+        $blog->delete();
     }
 }
