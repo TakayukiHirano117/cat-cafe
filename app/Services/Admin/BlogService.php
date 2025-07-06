@@ -4,7 +4,7 @@ namespace App\Services\Admin;
 
 use App\Repositories\Admin\BlogRepository;
 use App\Models\Blog;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Storage;
 
 class BlogService implements BlogServiceInterface
@@ -14,11 +14,11 @@ class BlogService implements BlogServiceInterface
     }
 
     /**
-     * ブログを全件取得する
+     * ブログを10件取得する
      */
-    public function getAllBlog(): Collection
+    public function getBlogs(): LengthAwarePaginator
     {
-        return $this->blogRepository->getAllBlog();
+        return $this->blogRepository->getBlogs();
     }
 
     /**

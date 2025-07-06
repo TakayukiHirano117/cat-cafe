@@ -3,15 +3,15 @@
 namespace App\Repositories\Admin;
 
 use App\Models\Blog;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 interface BlogRepositoryInterface
 {
     /**
-     * ブログを全件取得する
-     * @return Collection
+     * ブログを10件取得する
+     * @return LengthAwarePaginator
      */
-    public function getAllBlog(): Collection;
+    public function getBlogs();
 
     /**
      * ブログ１件の詳細データを取得する。
