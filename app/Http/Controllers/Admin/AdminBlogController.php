@@ -5,11 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreBlogRequest;
 use App\Http\Requests\Admin\UpdateBlogRequest;
-use App\Models\Blog;
 use App\Services\Admin\BlogService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
-use Storage;
 
 class AdminBlogController extends Controller
 {
@@ -19,7 +17,7 @@ class AdminBlogController extends Controller
 
     public function index(): View
     {
-        $blogs = $this->blogService->getAllBlog();
+        $blogs = $this->blogService->getBlogs();
 
         return view('admin.blogs.index', ['blogs' => $blogs]);
     }
